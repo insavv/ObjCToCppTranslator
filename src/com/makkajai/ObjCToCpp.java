@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 import static com.makkajai.Constants.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 
 /**
@@ -40,7 +43,8 @@ public class ObjCToCpp {
    //     String outputDirectory = "/Users/administrator/playground/projarea/monster-math-cross-platform/monster-math-2/Classes/Makkajai/scenes";
 
         List<String> exceptFiles = new ArrayList<String>();
-
+        exceptFiles = Files.readAllLines(Paths.get("/Users/vidit/fields/exceptFiles.txt"), StandardCharsets.UTF_8);
+        
         if(args.length == 3) {
             BufferedReader bufferedInputStream = new BufferedReader(new FileReader(args[2]));
             String exceptFile = null;
@@ -49,14 +53,22 @@ public class ObjCToCpp {
                 exceptFiles.add(exceptFile);
             }
         }
+        Collections.sort(exceptFiles);
+        
+        System.out.println("ExceptFiles:");
+        for(String file: exceptFiles){
+            System.out.println(file);
+        }
 
         //Getting all the files from the input directory.
         final List<File> files = new ArrayList<File>(FileUtils.listFiles(
                 new File(inputDirectory),
                 new RegexFileFilter(FILE_NAME_WITH_H_OR_M),
-                DirectoryFileFilter.DIRECTORY
+                null//DirectoryFileFilter.DIRECTORY //for parsing files in current directory only
         ));
         Collections.sort(files);
+        
+        System.out.println("\nFiles parsing:");
         for(File file: files){
             System.out.println(file.getName());
         }
@@ -66,7 +78,7 @@ public class ObjCToCpp {
 ////                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/Utils/MakkajaiUtil"
 ////                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/Home"
 ////                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/Activities/gnumchmenu/PlayStrategy"
-////                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/Characters/Character"
+////                    "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/Characters/Character"
 //                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/Activities/gnumchmenu/GnumchScene"
 ////                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/ParentScene"
 ////                "/Users/administrator/playground/projarea/math-monsters-2/makkajai-number-muncher/makkajai-ios/Makkajai/Makkajai/BaseSkillView"

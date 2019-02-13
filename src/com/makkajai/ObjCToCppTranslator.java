@@ -160,9 +160,9 @@ public class ObjCToCppTranslator extends ObjCBaseVisitor<Void> {
     }
 
     void translateFile(final TranslateFileInput translateFileInput) throws IOException {
-        if(translateFileInput.filePathRelativeToInput.contains("IconWithText")) {
-            System.out.println("Break!");
-        }
+//        if(translateFileInput.filePathRelativeToInput.contains("IconWithText")) {
+//            System.out.println("Break!");
+//        }
         initializeVariables(translateFileInput);
         startParsing(translateFileInput);
         writeOutput(translateFileInput);
@@ -954,7 +954,7 @@ public class ObjCToCppTranslator extends ObjCBaseVisitor<Void> {
             String sourceParameter = tokens.getText(keyword_declaratorContext.IDENTIFIER().getSourceInterval());
             if(i > 0) {
                 sourceMethod = toUpperFirstLetter(sourceMethod);
-                finalParameters += ", ";
+                   finalParameters += ", ";
             }
             finalMethodName += sourceMethod;
             finalParameters += translateIdentifier(sourceType.replaceAll("\\(", EMPTY_STRING).replaceAll("\\)", EMPTY_STRING)) + " " + sourceParameter;
